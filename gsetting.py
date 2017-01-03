@@ -3,7 +3,7 @@
 import json
 import re
 import subprocess
-import q
+# import q
 
 from ansible.module_utils.basic import *
 
@@ -83,7 +83,6 @@ def _get_value(user, schema, key):
         'kill $DBUS_SESSION_BUS_PID &> /dev/null'
     ])
 
-    q(command)
     return subprocess.check_output([
         'sudo', '-u', user , 'sh', '-c', command
     ]).strip()
@@ -109,8 +108,7 @@ def main():
     value = module.params['value']
 
     old_value = _get_value(user, schema, key)
-    q(old_value)
-
+    
     value = _decode_value(value)
 
     if state == 'append':
